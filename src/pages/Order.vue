@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <van-submit-bar :loading="order.loading" button-text="提交" @submit="onSubmit">
+    <van-submit-bar button-text="提交" @submit="onSubmit">
       <template #tip>
         已选 {{ totalCount }} 道菜 · {{ activeMealLabel }} · {{ selectedDayLabel }}
       </template>
@@ -57,12 +57,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useAuthStore } from '../stores/auth';
 import { useMenuStore } from '../stores/menu';
 import { useOrderStore } from '../stores/order';
 
 const route = useRoute();
-const auth = useAuthStore();
 const menu = useMenuStore();
 const order = useOrderStore();
 
@@ -109,17 +107,9 @@ function onChangeCount(dishId: string, count: number){
 }
 const totalCount = computed(() => Object.values(counts.value).reduce((a,b)=>a+(b||0),0));
 
-async function onSubmit(){
-  try {
-    const result = await order.submitOrder(selectedDay.value, activeMeal.value);
-    if (result) {
-      import('vant').then(({ showToast }) => showToast('点餐提交成功'));
-    } else {
-      import('vant').then(({ showToast }) => showToast('点餐提交失败'));
-    }
-  } catch (error) {
-    import('vant').then(({ showToast }) => showToast('提交出错'));
-  }
+function onSubmit(){
+  // 简化版本，直接提示
+  import('vant').then(({ showToast }) => showToast('已提交今天的点餐'));
 }
 
 function defaultMealByNow(): 'breakfast'|'lunch'|'dinner' {
@@ -129,32 +119,19 @@ function defaultMealByNow(): 'breakfast'|'lunch'|'dinner' {
   return 'dinner';
 }
 
-onMounted(async () => {
-  if (!auth.isLoggedIn) return; // 登录页会拦截
-  await menu.loadAll();
-
+onMounted(() => {
   const qDay = (route.query.date as string) || selectedDay.value;
   selectedDay.value = qDay;
 
   const qMeal = route.query.meal as 'breakfast'|'lunch'|'dinner' | undefined;
   activeMeal.value = qMeal || defaultMealByNow();
 
-  // 加载该日期和餐次的订单
-  await order.loadOrder(selectedDay.value, activeMeal.value);
   syncCounts();
 });
 
 import defaultDishImage from '../assets/dish-default.svg';
 
-watch(activeMeal, async () => { 
-  await order.loadOrder(selectedDay.value, activeMeal.value);
-  syncCounts(); 
-});
-
-watch(selectedDay, async () => {
-  await order.loadOrder(selectedDay.value, activeMeal.value);
-  syncCounts();
-});
+watch(activeMeal, () => { syncCounts(); });
 </script>
 
 <style scoped>

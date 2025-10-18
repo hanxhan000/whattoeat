@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useOrderStore } from '../../stores/order';
 import { useMenuStore } from '../../stores/menu';
@@ -42,11 +42,6 @@ const selected = computed(() => {
       const dish = menuStore.dishes.find(d => d.id === dishId);
       return dish ? `${dish.name}×${count}` : `未知菜品(${dishId})×${count}`;
     });
-});
-
-// 加载该日期和餐次的订单数据
-onMounted(async () => {
-  await orderStore.loadOrder(props.date, props.meal);
 });
 
 function goSelect() {

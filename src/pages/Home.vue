@@ -44,13 +44,9 @@ const router = useRouter();
 const menu = useMenuStore();
 const order = useOrderStore();
 
-onMounted(async () => {
-  // 移除登录检查，让首页可以直接访问
-  // if (!auth.isLoggedIn) router.replace('/login');
-  await menu.loadAll();
+onMounted(() => {
+  // 简化版本，直接使用本地数据
 });
-
-// 移除未使用的 displayName，避免构建类型提示
 
 const days = computed(() => menu.next7Days());
 const today = computed(() => days.value[0]?.value || '');

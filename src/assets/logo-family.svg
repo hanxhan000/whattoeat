@@ -8,13 +8,37 @@
       <stop offset="0%" stop-color="#FFD7A2"/>
       <stop offset="100%" stop-color="#FFC0CC"/>
     </linearGradient>
+    <linearGradient id="g3" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#FF7043"/>
+    </linearGradient>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#ff9f6a" flood-opacity="0.35"/>
     </filter>
   </defs>
+  
+  <!-- 房屋主体 -->
   <rect x="12" y="60" width="104" height="52" rx="10" fill="#fff" stroke="url(#g1)" stroke-width="4" filter="url(#shadow)"/>
+  
+  <!-- 屋顶 -->
   <path d="M64 18 L16 52 L24 52 L24 60 L104 60 L104 52 L112 52 Z" fill="url(#g1)" opacity="0.25"/>
+  
+  <!-- 房门 -->
   <path d="M64 30 L28 56 L28 108 L100 108 L100 56 Z" fill="#fff" stroke="url(#g1)" stroke-width="3"/>
+  
+  <!-- 心形装饰 -->
   <path d="M64 48 C54 36 36 40 32 56 C30 64 36 76 64 92 C92 76 98 64 96 56 C92 40 74 36 64 48 Z" fill="url(#g2)" stroke="url(#g1)" stroke-width="2"/>
+  
+  <!-- 屋顶装饰 -->
   <circle cx="64" cy="18" r="6" fill="url(#g1)"/>
+  
+  <!-- 窗户 -->
+  <rect x="35" y="70" width="20" height="20" rx="3" fill="url(#g2)" stroke="url(#g3)" stroke-width="2"/>
+  <rect x="73" y="70" width="20" height="20" rx="3" fill="url(#g2)" stroke="url(#g3)" stroke-width="2"/>
+  
+  <!-- 窗户十字 -->
+  <line x1="45" y1="70" x2="45" y2="90" stroke="url(#g3)" stroke-width="2"/>
+  <line x1="35" y1="80" x2="55" y2="80" stroke="url(#g3)" stroke-width="2"/>
+  <line x1="83" y1="70" x2="83" y2="90" stroke="url(#g3)" stroke-width="2"/>
+  <line x1="73" y1="80" x2="93" y2="80" stroke="url(#g3)" stroke-width="2"/>
 </svg>

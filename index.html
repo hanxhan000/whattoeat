@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
     <title>今天吃什么 · H5</title>
+    <script>
+      (function(){
+        // 能力检测：旧设备直接进入lite兼容版
+        var ok = (function(){
+          try {
+            return !!window.Proxy && !!window.Reflect && !!window.Promise && !!window.URL && !!Object.assign;
+          } catch(e){ return false; }
+        })();
+        if(!ok){
+          location.replace('/whattoeat/lite.html');
+          return;
+        }
+        // 全局错误与拒绝：触发则跳转兼容版，避免白屏
+        try {
+          window.addEventListener('error', function(){ try{ location.replace('/whattoeat/lite.html'); }catch(e){} }, { once: true });
+          window.addEventListener('unhandledrejection', function(){ try{ location.replace('/whattoeat/lite.html'); }catch(e){} }, { once: true });
+        } catch(e){}
+        // 挂载看门狗：3.5s 未挂载则降级
+        try {
+          window.__app_bootstrap_timeout = setTimeout(function(){ if(!window.__app_mounted) location.replace('/whattoeat/lite.html'); }, 3500);
+        } catch(e){}
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

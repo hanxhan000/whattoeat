@@ -1,6 +1,12 @@
+import './style.css'
 import { createApp } from 'vue'
 import App from './App.vue'
-import './style.css'
+
+createApp(App).mount('#app')
+
+// 标记应用已挂载并清理看门狗超时，避免误降级
+;(window as any).__app_mounted = true
+try { clearTimeout((window as any).__app_bootstrap_timeout) } catch (_) {}
 
 // 新增：路由、Pinia、Vant样式
 import { createPinia } from 'pinia'

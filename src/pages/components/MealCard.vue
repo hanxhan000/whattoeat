@@ -12,11 +12,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { useOrderStore } from '../../stores/order';
+import { useMenuStore } from '../../stores/menu';
 
 const props = defineProps<{ date: string; meal: 'breakfast'|'lunch'|'dinner' }>();
 const router = useRouter();
+const orderStore = useOrderStore();
+const menuStore = useMenuStore();
 
 const title = computed(() => ({
   breakfast: '早餐',
@@ -30,7 +34,20 @@ const deadline = computed(() => ({
   dinner: '17:00'
 })[props.meal]);
 
-const selected = computed(() => []); // TODO: 与后端联动或使用本地 store
+const selected = computed(() => {
+  const counts = orderStore.getCounts(props.date, props.meal);
+  return Object.entries(counts)
+    .filter(([_, count]) => count > 0)
+    .map(([dishId, count]) => {
+      const dish = menuStore.dishes.find(d => d.id === dishId);
+      return dish ? `${dish.name}×${count}` : `未知菜品(${dishId})×${count}`;
+    });
+});
+
+// 加载该日期和餐次的订单数据
+onMounted(async () => {
+  await orderStore.loadOrder(props.date, props.meal);
+});
 
 function goSelect() {
   router.push({ name: 'order', query: { date: props.date, meal: props.meal } });

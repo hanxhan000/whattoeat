@@ -36,19 +36,18 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '../stores/auth';
 import { useMenuStore } from '../stores/menu';
 import { useOrderStore, type Meal } from '../stores/order';
 import logoUrl from '../assets/logo-family.svg';
 
 const router = useRouter();
-const auth = useAuthStore();
 const menu = useMenuStore();
 const order = useOrderStore();
 
-onMounted(() => {
-  if (!auth.isLoggedIn) router.replace('/login');
-  menu.ensureSeed();
+onMounted(async () => {
+  // 移除登录检查，让首页可以直接访问
+  // if (!auth.isLoggedIn) router.replace('/login');
+  await menu.loadAll();
 });
 
 // 移除未使用的 displayName，避免构建类型提示

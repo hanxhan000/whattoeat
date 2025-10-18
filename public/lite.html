@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>兼容版（Lite） · 今天吃什么</title>
+    <style>
+      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif; background: #f7f7f9; color: #333; }
+      .wrap { max-width: 760px; margin: 20px auto; padding: 16px; }
+      .card { background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.06); padding:16px; margin-bottom:16px; }
+      h1 { font-size: 20px; margin: 0 0 8px; }
+      label { display:block; margin: 8px 0 4px; }
+      select, input[type=text] { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #e5e5ea; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .dishes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .dish { border:1px solid #eee; border-radius:8px; padding:8px; background:#fff; }
+      .actions { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+      button { padding: 10px 14px; border-radius: 10px; border: none; color:#fff; background:#1989fa; }
+      button.secondary { background:#07c160; }
+      .tips { color:#666; font-size: 12px; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <h1>兼容版（Lite）</h1>
+        <p class="tips">为不支持现代特性（如 Proxy）的旧浏览器提供基础点餐页面。此版本不依赖框架与模块，适配更老的安卓/iOS 浏览器。</p>
+      </div>
+
+      <div class="card">
+        <div class="grid">
+          <div>
+            <label>昵称</label>
+            <input id="nickname" type="text" placeholder="请输入昵称" />
+            <div class="tips">将用于本地存储以区分不同用户。</div>
+          </div>
+          <div>
+            <label>备注</label>
+            <input id="remark" type="text" placeholder="如爸爸/妈妈/儿子" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="grid">
+          <div>
+            <label>日期</label>
+            <select id="date"></select>
+          </div>
+          <div>
+            <label>餐次</label>
+            <select id="meal">
+              <option value="breakfast">早餐</option>
+              <option value="lunch">午餐</option>
+              <option value="dinner">晚餐</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>选择菜品</label>
+        <div id="dishes" class="dishes"></div>
+      </div>
+
+      <div class="card">
+        <div class="actions">
+          <button id="submit">提交到本地</button>
+          <button id="reset" class="secondary">重置选择</button>
+        </div>
+        <div id="result" class="tips"></div>
+      </div>
+
+      <div class="card">
+        <div class="actions">
+          <button onclick="location.href='/whattoeat/'">尝试打开完整版</button>
+          <button class="secondary" onclick="location.href='/whattoeat/unsupported.html'">查看兼容性说明</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 兼容版仅使用 ES5 语法：避免 let/const、箭头函数、Promise 等
+      (function(){
+        var dateSel = document.getElementById('date');
+        var mealSel = document.getElementById('meal');
+        var dishesWrap = document.getElementById('dishes');
+        var submitBtn = document.getElementById('submit');
+        var resetBtn = document.getElementById('reset');
+        var resultDom = document.getElementById('result');
+        var nickDom = document.getElementById('nickname');
+        var remarkDom = document.getElementById('remark');
+
+        // 生成未来 7 天
+        function pad2(n){ return (n<10 ? '0' : '') + n; }
+        function fmt(d){ return d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate()); }
+        var now = new Date();
+        for(var i=0;i<7;i++){ var d = new Date(now.getTime()+i*24*3600*1000); var opt = document.createElement('option'); opt.value = fmt(d); opt.text = (i===0?'今天 ':'') + fmt(d); dateSel.appendChild(opt); }
+
+        // 简化菜品列表（与主站示例一致但为静态）：
+        var catalog = [
+          { id:'tomato-egg', name:'西红柿炒鸡蛋', category:'蔬菜-瓜果' },
+          { id:'steamed-fish', name:'清蒸鱼', category:'蛋白质类' },
+          { id:'tomato-soup', name:'番茄蛋汤', category:'汤羹类' },
+          { id:'fried-veg', name:'炒时蔬', category:'蔬菜类' }
+        ];
+
+        // 渲染复选框
+        var checks = {};
+        for(var c=0;c<catalog.length;c++){
+          var dish = catalog[c];
+          var div = document.createElement('div');
+          div.className = 'dish';
+          var id = 'dish_'+dish.id;
+          div.innerHTML = '<label><input type="checkbox" id="'+id+'"> '+dish.name+' <span style="color:#999;font-size:12px">('+dish.category+')</span></label>';
+          dishesWrap.appendChild(div);
+          checks[dish.id] = id;
+        }
+
+        // 本地存储键
+        var LS_KEY = 'whattoeat-lite-orders';
+        function loadLS(){ try{ return JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){ return {}; } }
+        function saveLS(v){ try{ localStorage.setItem(LS_KEY, JSON.stringify(v||{})); }catch(e){} }
+
+        // 绑定事件
+        submitBtn.onclick = function(){
+          var date = dateSel.value; var meal = mealSel.value;
+          var selected = [];
+          for(var k in checks){ var el = document.getElementById(checks[k]); if(el && el.checked){ selected.push(k); } }
+          var nickname = nickDom.value || '';
+          var remark = remarkDom.value || '';
+
+          var all = loadLS(); if(!all[nickname]) all[nickname] = {}; if(!all[nickname][date]) all[nickname][date] = {};
+          all[nickname][date][meal] = selected;
+          saveLS(all);
+          resultDom.innerHTML = '已保存：'+ date + ' · ' + (meal==='breakfast'?'早餐':meal==='lunch'?'午餐':'晚餐') + ' · '+ selected.length + ' 道菜';
+        };
+
+        resetBtn.onclick = function(){ for(var k in checks){ var el = document.getElementById(checks[k]); if(el){ el.checked = false; } } resultDom.innerHTML = ''; };
+      })();
+    </script>
+  </body>
+</html>

@@ -2,37 +2,92 @@ import './style.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
-
-// 标记应用已挂载并清理看门狗超时，避免误降级
-;(window as any).__app_mounted = true
-try { clearTimeout((window as any).__app_bootstrap_timeout) } catch (_) {}
-
-// 新增：路由、Pinia、Vant样式
-import { createPinia } from 'pinia'
-import { router } from './router'
-import 'vant/lib/index.css'
-import { Button, NavBar, Cell, CellGroup, Field, Tabbar, TabbarItem, List, Search, Sidebar, SidebarItem, Stepper, SubmitBar, ActionSheet, Tabs, Tab, Image } from 'vant'
-
+// 创建应用实例
 const app = createApp(App)
+
+// 导入并配置Pinia状态管理
+import { createPinia } from 'pinia'
 app.use(createPinia())
+
+// 导入并配置Vue Router
+import { router } from './router'
 app.use(router)
+
+// 导入Vant组件库样式
+import 'vant/lib/index.css'
+
+// 按需导入Vant组件
+import {
+  // 基础组件
+  Button,
+  Icon,
+  Image,
+  Cell,
+  CellGroup,
+  NavBar,
+  Tabbar,
+  TabbarItem,
+  
+  // 表单组件
+  Field,
+  Stepper,
+  SubmitBar,
+  
+  // 反馈组件
+  Toast,
+  Notify,
+  
+  // 导航组件
+  Tab,
+  Tabs,
+  Sidebar,
+  SidebarItem,
+  
+  // 展示组件
+  List,
+  Card,
+  
+  // 操作反馈
+  ActionSheet,
+  Dialog,
+  
+  // 其他组件
+  Empty,
+  Loading,
+  Popup,
+  Overlay
+} from 'vant'
+
+// 注册Vant组件
 app.use(Button)
-app.use(NavBar)
+app.use(Icon)
+app.use(Image)
 app.use(Cell)
 app.use(CellGroup)
-app.use(Field)
+app.use(NavBar)
 app.use(Tabbar)
 app.use(TabbarItem)
-app.use(List)
-app.use(Search)
-// 新增
-app.use(Sidebar)
-app.use(SidebarItem)
+app.use(Field)
 app.use(Stepper)
 app.use(SubmitBar)
-app.use(ActionSheet)
-app.use(Tabs)
+app.use(Toast)
+app.use(Notify)
 app.use(Tab)
-app.use(Image)
+app.use(Tabs)
+app.use(Sidebar)
+app.use(SidebarItem)
+app.use(List)
+app.use(Card)
+app.use(ActionSheet)
+app.use(Dialog)
+app.use(Empty)
+app.use(Loading)
+app.use(Popup)
+app.use(Overlay)
+
+// 挂载应用
 app.mount('#app')
+
+// 挂载完成后标记成功并清理看门狗，避免误降级
+;(window as any).__app_mounted = true
+try { clearTimeout((window as any).__app_bootstrap_timeout) } catch (_) {}

@@ -1,0 +1,1 @@
+import{aJ as o}from"./index-CSl2CzVt.js";function a(t,e){return"".concat(t,"::").concat(e)}const n=o("order",{state:()=>({carts:{}}),actions:{getCounts(t,e){const s=a(t,e);return{...this.carts[s]||{}}},setCount(t,e,s,c){const r=a(t,e);this.carts[r]||(this.carts[r]={}),c<=0?delete this.carts[r][s]:this.carts[r][s]=c},clear(t,e){const s=a(t,e);this.carts[s]={}}}});export{n as u};

@@ -13,48 +13,6 @@
     <!-- PWA manifest -->
     <link rel="manifest" href="/whattoeat/manifest.json" />
     
-    <!-- Icons（移除404资源，保留必要图标后续再加） -->
-    <!-- <link rel="icon" href="/whattoeat/favicon.ico" /> -->
-    <!-- <link rel="apple-touch-icon" href="/whattoeat/apple-touch-icon.png" /> -->
-    
-    <!-- Preload（构建后资源带hash，不稳定，移除避免404） -->
-    <!-- <link rel="preload" href="/whattoeat/src/assets/logo-family.svg" as="image" /> -->
-    
-    <script>
-      (function(){
-        // 早期UA降级：移动端（含微信/QQ/UC等）直接使用兼容版，最大化避免白屏
-        try {
-          var ua = navigator.userAgent || '';
-          var isMobileUA = /Mobile|Android|iPhone|iPad|MicroMessenger|MQQBrowser|UCBrowser|QQ|AlipayClient/i.test(ua);
-          if (isMobileUA) {
-            location.replace('/whattoeat/lite.html');
-            return;
-          }
-        } catch(e) { /* UA 解析异常则继续后续能力检测 */ }
-
-        // 兼容性兜底（三层）：能力检测 → 全局错误 → 挂载看门狗
-        // 能力检测：旧设备直接进入lite兼容版
-        var ok = (function(){
-          try {
-            return !!window.Proxy && !!window.Reflect && !!window.Promise && !!window.URL && !!Object.assign;
-          } catch(e){ return false; }
-        })();
-        if(!ok){
-          location.replace('/whattoeat/lite.html');
-          return;
-        }
-        // 全局错误与拒绝：触发则跳转兼容版，避免白屏
-        try {
-          window.addEventListener('error', function(){ try{ location.replace('/whattoeat/lite.html'); }catch(e){} }, { once: true });
-          window.addEventListener('unhandledrejection', function(){ try{ location.replace('/whattoeat/lite.html'); }catch(e){} }, { once: true });
-        } catch(e){}
-        // 挂载看门狗：3.5s 未挂载则降级
-        try {
-          window.__app_bootstrap_timeout = setTimeout(function(){ if(!window.__app_mounted) location.replace('/whattoeat/lite.html'); }, 3500);
-        } catch(e){}
-      })();
-    </script>
-    
     <!-- 移动端优化 -->
     <style>
       /* 防止点击延迟 */
@@ -76,24 +34,19 @@
     </style>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-    <!-- 保留桌面仅注册 SW（移动端仍不注册），避免旧内核缓存干扰完整版加载 -->
-    <script>
-      (function(){
-        try {
-          var ua = navigator.userAgent || '';
-          var isMobileUA = /Mobile|Android|iPhone|iPad|MicroMessenger|MQQBrowser|UCBrowser|QQ|AlipayClient/i.test(ua);
-          if (isMobileUA) return; // 移动端不注册 SW
-        } catch(e) { return; }
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function(){
-            navigator.serviceWorker.register('/whattoeat/sw.js')
-              .then(function(reg){ console.log('SW registered:', reg); })
-              .catch(function(err){ console.log('SW registration failed:', err); });
-          });
+    <div id="app">
+      <!-- Loading indicator -->
+      <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+        <div style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #1989fa; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="margin-top: 16px; color: #666;">加载中...</p>
+      </div>
+      <style>
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
         }
-      })();
-    </script>
+      </style>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

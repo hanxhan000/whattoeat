@@ -1,0 +1,36 @@
+{
+  "name": "今天吃什么",
+  "short_name": "今天吃什么",
+  "description": "家庭智能点餐系统",
+  "start_url": "/whattoeat/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1989fa",
+  "icons": [
+    {
+      "src": "/whattoeat/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/whattoeat/logo-family.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "categories": ["food", "lifestyle", "utilities"],
+  "screenshots": [
+    {
+      "src": "/whattoeat/screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

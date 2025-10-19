@@ -8,16 +8,10 @@
   "theme_color": "#1989fa",
   "icons": [
     {
-      "src": "/whattoeat/vite.svg",
+      "src": "/whattoeat/assets/logo-family-Cax3AFxD.js",
       "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/whattoeat/logo-family.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "application/javascript",
+      "purpose": "any"
     }
   ],
   "orientation": "portrait",
@@ -25,12 +19,4 @@
   "dir": "ltr",
   "prefer_related_applications": false,
   "categories": ["food", "lifestyle", "utilities"],
-  "screenshots": [
-    {
-      "src": "/whattoeat/screenshot1.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ]
 }

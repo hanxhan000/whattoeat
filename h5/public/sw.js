@@ -1,5 +1,5 @@
 // Service Worker 版本（提升首页更新与离线体验）
-const CACHE_NAME = 'whattoeat-v1.0.1';
+const CACHE_NAME = 'whattoeat-v1.0.2';
 const urlsToCache = [
   '/whattoeat/',
   '/whattoeat/index.html'

@@ -1,0 +1,282 @@
+[
+  {
+    "id": "dish_rice",
+    "name": "白米饭",
+    "categoryId": "cate_main",
+    "categoryName": "主食类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "大米", "quantity": 80, "unit": "g" },
+      { "name": "清水", "quantity": 120, "unit": "ml" }
+    ],
+    "instructions": ["淘洗大米", "按比例加水", "电饭煲煮熟后焖10分钟"]
+  },
+  {
+    "id": "dish_congee",
+    "name": "白粥",
+    "categoryId": "cate_main",
+    "categoryName": "主食类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "大米", "quantity": 50, "unit": "g" },
+      { "name": "清水", "quantity": 500, "unit": "ml" }
+    ],
+    "instructions": ["大米淘洗", "加水大火煮开", "转小火熬至米粒开花"]
+  },
+  {
+    "id": "dish_cheung_fun",
+    "name": "广式肠粉",
+    "categoryId": "cate_main",
+    "categoryName": "主食类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "肠粉粉", "quantity": 80, "unit": "g" },
+      { "name": "清水", "quantity": 120, "unit": "ml" },
+      { "name": "猪肉末", "quantity": 50, "unit": "g" },
+      { "name": "鸡蛋", "quantity": 1, "unit": "个" },
+      { "name": "葱花", "quantity": 5, "unit": "g" }
+    ],
+    "instructions": ["调浆", "蒸盘薄摊蒸制", "撒馅料再卷起", "淋豉油"]
+  },
+  {
+    "id": "dish_steam_seabass",
+    "name": "清蒸鲈鱼",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "鲈鱼", "quantity": 1, "unit": "条" },
+      { "name": "姜丝", "quantity": 10, "unit": "g" },
+      { "name": "葱丝", "quantity": 10, "unit": "g" },
+      { "name": "蒸鱼豉油", "quantity": 20, "unit": "ml" }
+    ],
+    "instructions": ["鱼去腥划刀", "铺姜丝蒸8-10分钟", "淋热油与豉油"]
+  },
+  {
+    "id": "dish_white_cut_chicken",
+    "name": "白切鸡",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "三黄鸡", "quantity": 0.5, "unit": "只" },
+      { "name": "姜", "quantity": 20, "unit": "g" },
+      { "name": "葱", "quantity": 20, "unit": "g" },
+      { "name": "盐", "quantity": 5, "unit": "g" }
+    ],
+    "instructions": ["清水下鸡小火浸熟", "捞出冰镇", "斩件配姜葱油"]
+  },
+  {
+    "id": "dish_ginger_scallion_chicken",
+    "name": "姜葱鸡",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "鸡腿肉", "quantity": 300, "unit": "g" },
+      { "name": "姜丝", "quantity": 15, "unit": "g" },
+      { "name": "葱段", "quantity": 20, "unit": "g" },
+      { "name": "生抽", "quantity": 10, "unit": "ml" }
+    ],
+    "instructions": ["鸡肉滑油", "姜葱爆香", "下鸡肉翻炒调味"]
+  },
+  {
+    "id": "dish_shrimp_blanch",
+    "name": "白灼虾",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "鲜虾", "quantity": 500, "unit": "g" },
+      { "name": "姜片", "quantity": 10, "unit": "g" },
+      { "name": "葱段", "quantity": 10, "unit": "g" },
+      { "name": "盐", "quantity": 3, "unit": "g" }
+    ],
+    "instructions": ["加姜葱盐的水烧开", "下虾煮至变色", "捞出蘸酱食用"]
+  },
+  {
+    "id": "dish_oyster_sauce_lettuce",
+    "name": "蚝油生菜",
+    "categoryId": "cate_vegs",
+    "categoryName": "蔬菜类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "生菜", "quantity": 300, "unit": "g" },
+      { "name": "蒜末", "quantity": 10, "unit": "g" },
+      { "name": "蚝油", "quantity": 15, "unit": "ml" }
+    ],
+    "instructions": ["生菜焯水沥干", "蒜末爆香", "蚝油水淋汁拌匀"]
+  },
+  {
+    "id": "dish_stir_fry_choy_sum",
+    "name": "清炒菜心",
+    "categoryId": "cate_vegs",
+    "categoryName": "蔬菜类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "菜心", "quantity": 300, "unit": "g" },
+      { "name": "蒜片", "quantity": 10, "unit": "g" },
+      { "name": "盐", "quantity": 3, "unit": "g" }
+    ],
+    "instructions": ["热油爆香蒜片", "下菜心大火快炒", "加盐出锅"]
+  },
+  {
+    "id": "dish_stir_fry_water_spinach",
+    "name": "蒜蓉炒空心菜",
+    "categoryId": "cate_vegs",
+    "categoryName": "蔬菜类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "空心菜", "quantity": 300, "unit": "g" },
+      { "name": "蒜末", "quantity": 12, "unit": "g" },
+      { "name": "盐", "quantity": 3, "unit": "g" }
+    ],
+    "instructions": ["热锅凉油", "蒜末爆香", "下菜快炒调味"]
+  },
+  {
+    "id": "dish_winter_melon_pork_ribs_soup",
+    "name": "冬瓜排骨汤",
+    "categoryId": "cate_soup",
+    "categoryName": "汤羹类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "排骨", "quantity": 400, "unit": "g" },
+      { "name": "冬瓜", "quantity": 500, "unit": "g" },
+      { "name": "姜片", "quantity": 10, "unit": "g" },
+      { "name": "盐", "quantity": 3, "unit": "g" }
+    ],
+    "instructions": ["排骨焯水", "加水与姜片炖煮", "下冬瓜至软烂调味"]
+  },
+  {
+    "id": "dish_old_fire_soup",
+    "name": "老火靓汤",
+    "categoryId": "cate_soup",
+    "categoryName": "汤羹类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "猪骨", "quantity": 600, "unit": "g" },
+      { "name": "玉米", "quantity": 1, "unit": "根" },
+      { "name": "胡萝卜", "quantity": 1, "unit": "根" },
+      { "name": "红枣", "quantity": 6, "unit": "颗" }
+    ],
+    "instructions": ["食材焯水", "加足水小火煲2小时", "出锅盐调味"]
+  },
+  {
+    "id": "dish_steamed_pork_patty",
+    "name": "咸蛋蒸肉饼",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "猪肉末", "quantity": 300, "unit": "g" },
+      { "name": "咸蛋", "quantity": 1, "unit": "个" },
+      { "name": "葱姜水", "quantity": 30, "unit": "ml" },
+      { "name": "生抽", "quantity": 10, "unit": "ml" }
+    ],
+    "instructions": ["肉末顺着一个方向打水", "抹平盘中", "铺咸蛋蒸熟"]
+  },
+  {
+    "id": "dish_black_olive_green_beans",
+    "name": "榄菜肉末四季豆",
+    "categoryId": "cate_vegs",
+    "categoryName": "蔬菜类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "四季豆", "quantity": 300, "unit": "g" },
+      { "name": "猪肉末", "quantity": 150, "unit": "g" },
+      { "name": "榄菜", "quantity": 30, "unit": "g" }
+    ],
+    "instructions": ["四季豆断生备用", "爆香肉末与榄菜", "下四季豆翻炒入味"]
+  },
+  {
+    "id": "dish_steamed_pork_ribs_black_beans",
+    "name": "豉汁蒸排骨",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "排骨", "quantity": 400, "unit": "g" },
+      { "name": "豆豉", "quantity": 10, "unit": "g" },
+      { "name": "蒜末", "quantity": 10, "unit": "g" },
+      { "name": "生抽", "quantity": 10, "unit": "ml" }
+    ],
+    "instructions": ["排骨腌制20分钟", "上锅蒸熟至软烂"]
+  },
+  {
+    "id": "dish_scrambled_egg_shrimp",
+    "name": "滑蛋虾仁",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "鸡蛋", "quantity": 3, "unit": "个" },
+      { "name": "虾仁", "quantity": 150, "unit": "g" },
+      { "name": "牛奶/清水", "quantity": 30, "unit": "ml" }
+    ],
+    "instructions": ["虾仁滑油备用", "蛋液加奶与盐", "小火慢炒至凝软"]
+  },
+  {
+    "id": "dish_tomato_egg",
+    "name": "番茄炒蛋",
+    "categoryId": "cate_vegs",
+    "categoryName": "蔬菜类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "番茄", "quantity": 2, "unit": "个" },
+      { "name": "鸡蛋", "quantity": 2, "unit": "个" },
+      { "name": "葱花", "quantity": 5, "unit": "g" }
+    ],
+    "instructions": ["蛋液入锅滑散取出", "番茄炒出汁", "回蛋翻炒调味"]
+  },
+  {
+    "id": "dish_pork_belly_braise",
+    "name": "红烧肉",
+    "categoryId": "cate_protein",
+    "categoryName": "蛋白质类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "五花肉", "quantity": 400, "unit": "g" },
+      { "name": "冰糖", "quantity": 20, "unit": "g" },
+      { "name": "生抽", "quantity": 15, "unit": "ml" },
+      { "name": "老抽", "quantity": 5, "unit": "ml" }
+    ],
+    "instructions": ["五花肉焯水", "炒糖色入肉", "加水焖至软烂收汁"]
+  },
+  {
+    "id": "dish_red_bean_soup",
+    "name": "红豆沙",
+    "categoryId": "cate_dessert",
+    "categoryName": "甜点类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "红豆", "quantity": 200, "unit": "g" },
+      { "name": "冰糖", "quantity": 30, "unit": "g" }
+    ],
+    "instructions": ["红豆浸泡", "小火熬至软烂", "加糖搅匀"]
+  },
+  {
+    "id": "dish_green_bean_soup",
+    "name": "绿豆汤",
+    "categoryId": "cate_dessert",
+    "categoryName": "甜点类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "绿豆", "quantity": 200, "unit": "g" },
+      { "name": "冰糖", "quantity": 30, "unit": "g" }
+    ],
+    "instructions": ["大火煮开", "转小火煮至开花", "加糖调味"]
+  },
+  {
+    "id": "dish_mango_pudding",
+    "name": "芒果布丁",
+    "categoryId": "cate_dessert",
+    "categoryName": "甜点类",
+    "imageUrl": "/whattoeat/images/dishes/placeholder.jpg",
+    "ingredients": [
+      { "name": "芒果泥", "quantity": 200, "unit": "g" },
+      { "name": "牛奶", "quantity": 200, "unit": "ml" },
+      { "name": "吉利丁", "quantity": 8, "unit": "g" }
+    ],
+    "instructions": ["吉利丁软化", "混合加热搅匀", "入模冷藏定型"]
+  }
+]

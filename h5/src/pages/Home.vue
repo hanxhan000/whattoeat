@@ -63,6 +63,14 @@
           <van-icon name="shopping-cart-o" size="24" />
           <span>立即点餐</span>
         </div>
+        <div class="action-item" @click="router.push('/cart')">
+          <van-icon name="todo-list-o" size="24" />
+          <span>购物清单</span>
+        </div>
+        <div class="action-item" @click="router.push('/org')">
+          <van-icon name="friends-o" size="24" />
+          <span>家庭/组织</span>
+        </div>
       </div>
     </div>
 
@@ -71,6 +79,8 @@
       <van-tabbar-item replace to="/" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item replace to="/order" icon="shopping-cart-o">点餐</van-tabbar-item>
       <van-tabbar-item replace to="/plan" icon="orders-o">食谱</van-tabbar-item>
+      <van-tabbar-item replace to="/cart" icon="todo-list-o">清单</van-tabbar-item>
+      <van-tabbar-item replace to="/org" icon="friends-o">组织</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>
@@ -80,7 +90,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMenuStore } from '../stores/menu';
 import { useOrderStore, type Meal } from '../stores/order';
-import logoUrl from '../assets/logo-family.svg';
+import logoUrl from '../assets/logo-family-warm.svg';
 
 const router = useRouter();
 const menu = useMenuStore();
@@ -160,13 +170,16 @@ function goToProfile() {
 
 /* 英雄区域样式 */
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ffedd5 0%, #fde68a 100%);
+  background-image: url('../assets/bg-warm.svg');
+  background-size: cover;
+  background-position: center;
   border-radius: 16px;
   padding: 32px 20px;
   margin-bottom: 24px;
   text-align: center;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: #7c2d12;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .hero-content {

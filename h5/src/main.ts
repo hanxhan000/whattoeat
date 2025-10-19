@@ -60,7 +60,8 @@ import {
   Empty,
   Loading,
   Popup,
-  Overlay
+  Overlay,
+  Checkbox
 } from 'vant'
 
 // 注册Vant组件
@@ -89,6 +90,7 @@ app.use(Empty)
 app.use(Loading)
 app.use(Popup)
 app.use(Overlay)
+app.use(Checkbox)
 
 // 初始化移动端修复
 const { isMobile, isWeChat } = initMobileFix()
@@ -102,6 +104,11 @@ console.log('设备信息:', {
     height: window.innerHeight
   }
 })
+
+// 预加载云端数据（菜单）
+import { useMenuStore } from './stores/menu'
+const menuStore = useMenuStore()
+menuStore.loadFromCloud().catch(err => console.warn('loadFromCloud failed', err))
 
 // 挂载应用
 try {

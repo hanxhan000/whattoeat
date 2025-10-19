@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatToEat 应用测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff7ed;
+            color: #3f2d12;
+        }
+        h1, h2 {
+            color: #d97706;
+        }
+        .test-section {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .pass {
+            background-color: #f0fdf4;
+            border: 1px solid #4ade80;
+            color: #166534;
+        }
+        .fail {
+            background-color: #fef2f2;
+            border: 1px solid #f87171;
+            color: #991b1b;
+        }
+        button {
+            background-color: #d97706;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #ea580c;
+        }
+        #app {
+            min-height: 500px;
+            border: 1px dashed #d97706;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WhatToEat 应用测试</h1>
+    
+    <div class="test-section">
+        <h2>功能测试</h2>
+        <button onclick="runAllTests()">运行所有测试</button>
+        <div id="test-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>应用演示</h2>
+        <button onclick="loadApp()">加载应用</button>
+        <div id="app"></div>
+    </div>
+
+    <script>
+        // 简单的测试框架
+        const testResults = [];
+        
+        function assertEquals(actual, expected, message) {
+            if (actual !== expected) {
+                throw new Error(`Assertion failed: ${message}. Expected ${expected}, but got ${actual}`);
+            }
+        }
+        
+        function assertContains(actual, expected, message) {
+            if (actual.indexOf(expected) === -1) {
+                throw new Error(`Assertion failed: ${message}. Expected ${actual} to contain ${expected}`);
+            }
+        }
+        
+        function assertLength(actual, expected, message) {
+            if (actual.length !== expected) {
+                throw new Error(`Assertion failed: ${message}. Expected length ${expected}, but got ${actual.length}`);
+            }
+        }
+        
+        function runTest(name, testFn) {
+            try {
+                testFn();
+                testResults.push({ name, status: 'pass' });
+            } catch (error) {
+                testResults.push({ name, status: 'fail', error: error.message });
+            }
+        }
+        
+        // 测试菜单存储功能
+        function testMenuStore() {
+            // 模拟Pinia功能
+            const pinia = {};
+            
+            // 导入菜单存储
+            // 注意：在浏览器环境中无法直接导入ES模块，这里只是演示
+            
+            // 模拟菜单存储对象
+            const menuStore = {
+                categories: [
+                    { id: 'cate_main', name: '主食类' },
+                    { id: 'cate_protein', name: '蛋白质类' },
+                    { id: 'cate_vegs', name: '蔬菜类' },
+                    { id: 'cate_soup', name: '汤羹类' },
+                    { id: 'cate_dessert', name: '甜点类' }
+                ],
+                dishes: [],
+                next7Days: function() {
+                    const res = [];
+                    const now = new Date();
+                    for (let i = 0; i < 7; i++) {
+                        const d = new Date(now.getTime() + i * 86400000);
+                        const value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                        const label = i === 0 ? `今天 ${d.getMonth()+1}/${d.getDate()}` : `${d.getMonth()+1}/${d.getDate()}`;
+                        res.push({ value, label });
+                    }
+                    return res;
+                },
+                search: function(keyword) {
+                    const k = keyword.trim();
+                    if (!k) return this.dishes;
+                    const lower = k.toLowerCase();
+                    return this.dishes.filter(d => d.name.toLowerCase().includes(lower));
+                }
+            };
+            
+            // 测试分类初始化
+            assertLength(menuStore.categories, 5, 'should initialize with default categories');
+            assertEquals(menuStore.categories[0].id, 'cate_main', 'first category should have correct id');
+            assertEquals(menuStore.categories[0].name, '主食类', 'first category should have correct name');
+            
+            // 测试生成未来7天
+            const days = menuStore.next7Days();
+            assertLength(days, 7, 'should generate next 7 days');
+            assertContains(days[0].label, '今天', 'first day should contain "今天"');
+            
+            // 测试菜品搜索
+            // 添加一些测试菜品
+            menuStore.dishes = [
+                {
+                    id: '1',
+                    name: '白米饭',
+                    categoryId: 'cate_main',
+                    categoryName: '主食类',
+                    imageUrl: ''
+                },
+                {
+                    id: '2',
+                    name: '红烧肉',
+                    categoryId: 'cate_protein',
+                    categoryName: '蛋白质类',
+                    imageUrl: ''
+                }
+            ];
+            
+            const results = menuStore.search('白米');
+            assertLength(results, 1, 'should find one dish');
+            assertEquals(results[0].name, '白米饭', 'should find the correct dish');
+        }
+        
+        // 测试订单存储功能
+        function testOrderStore() {
+            // 模拟订单存储对象
+            const orderStore = {
+                carts: {},
+                makeKey: function(date, meal) { 
+                    return `${date}::${meal}`; 
+                },
+                getCounts: function(date, meal) {
+                    const key = this.makeKey(date, meal);
+                    return { ...(this.carts[key] || {}) };
+                },
+                setCount: function(date, meal, dishId, count) {
+                    const key = this.makeKey(date, meal);
+                    if (!this.carts[key]) this.carts[key] = {};
+                    if (count <= 0) delete this.carts[key][dishId]; else this.carts[key][dishId] = count;
+                },
+                clear: function(date, meal) {
+                    const key = this.makeKey(date, meal);
+                    this.carts[key] = {};
+                }
+            };
+            
+            // 测试设置和获取数量
+            orderStore.setCount('2025-01-01', 'lunch', 'dish_rice', 2);
+            const counts = orderStore.getCounts('2025-01-01', 'lunch');
+            assertEquals(counts['dish_rice'], 2, 'should set and get correct count');
+            
+            // 测试清除功能
+            orderStore.clear('2025-01-01', 'lunch');
+            const clearedCounts = orderStore.getCounts('2025-01-01', 'lunch');
+            assertLength(Object.keys(clearedCounts), 0, 'should clear all counts');
+        }
+        
+        // 运行所有测试
+        function runAllTests() {
+            testResults.length = 0; // 清空之前的测试结果
+            
+            runTest('菜单存储功能测试', testMenuStore);
+            runTest('订单存储功能测试', testOrderStore);
+            
+            displayTestResults();
+        }
+        
+        // 显示测试结果
+        function displayTestResults() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '';
+            
+            testResults.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${result.status}`;
+                
+                if (result.status === 'pass') {
+                    resultDiv.innerHTML = `<strong>✓ ${result.name}</strong>`;
+                } else {
+                    resultDiv.innerHTML = `<strong>✗ ${result.name}</strong><br><small>${result.error}</small>`;
+                }
+                
+                resultsDiv.appendChild(resultDiv);
+            });
+        }
+        
+        // 加载应用演示
+        function loadApp() {
+            const appDiv = document.getElementById('app');
+            appDiv.innerHTML = `
+                <h3>应用演示</h3>
+                <p>这是一个简化的演示，展示应用的基本结构和功能。</p>
+                
+                <div style="display: flex; gap: 20px; margin-top: 20px;">
+                    <div style="flex: 1; background: #ffedd5; padding: 20px; border-radius: 12px;">
+                        <h4>首页</h4>
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="width: 80px; height: 80px; background: #fde68a; border-radius: 50%; margin: 0 auto 10px;"></div>
+                            <h5>今天吃什么</h5>
+                            <p>为您的家庭提供美味食谱推荐</p>
+                            <button style="background: #d97706; color: white; border: none; padding: 10px 20px; border-radius: 20px;">开始点餐</button>
+                        </div>
+                    </div>
+                    
+                    <div style="flex: 1; background: #dbeafe; padding: 20px; border-radius: 12px;">
+                        <h4>点餐页</h4>
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div style="flex: 1; text-align: center; padding: 10px; background: #eff6ff; border-radius: 8px;">早餐</div>
+                            <div style="flex: 1; text-align: center; padding: 10px; background: #dbeafe; border-radius: 8px; border: 2px solid #3b82f6;">午餐</div>
+                            <div style="flex: 1; text-align: center; padding: 10px; background: #eff6ff; border-radius: 8px;">晚餐</div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="background: white; border-radius: 8px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                <div style="height: 80px; background: #f3f4f6; border-radius: 4px; margin-bottom: 10px;"></div>
+                                <div>白米饭</div>
+                                <div style="display: flex; justify-content: center; margin-top: 5px;">
+                                    <div style="display: flex; align-items: center; gap: 5px;">
+                                        <button style="width: 24px; height: 24px; border-radius: 50%;">-</button>
+                                        <span>0</span>
+                                        <button style="width: 24px; height: 24px; border-radius: 50%;">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 8px; padding: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                                <div style="height: 80px; background: #f3f4f6; border-radius: 4px; margin-bottom: 10px;"></div>
+                                <div>红烧肉</div>
+                                <div style="display: flex; justify-content: center; margin-top: 5px;">
+                                    <div style="display: flex; align-items: center; gap: 5px;">
+                                        <button style="width: 24px; height: 24px; border-radius: 50%;">-</button>
+                                        <span>0</span>
+                                        <button style="width: 24px; height: 24px; border-radius: 50%;">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

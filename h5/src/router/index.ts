@@ -20,6 +20,18 @@ const routes: RouteRecordRaw[] = [
     name: 'plan',
     component: () => import('../pages/Plan.vue'),
     meta: { title: '食谱' }
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: () => import('../pages/Cart.vue'),
+    meta: { title: '购物清单' }
+  },
+  {
+    path: '/org',
+    name: 'org',
+    component: () => import('../pages/Org.vue'),
+    meta: { title: '组织' }
   }
 ]
 

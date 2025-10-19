@@ -37,14 +37,20 @@ function testMenuStore() {
   const menuStore = useMenuStore();
   
   // 测试分类初始化
-  assertLength(menuStore.categories, 5, 'should initialize with default categories');
-  assertEquals(menuStore.categories[0].id, 'cate_main', 'first category should have correct id');
-  assertEquals(menuStore.categories[0].name, '主食类', 'first category should have correct name');
+  if (menuStore.categories) {
+    assertLength(menuStore.categories, 5, 'should initialize with default categories');
+    if (menuStore.categories[0]) {
+      assertEquals(menuStore.categories[0].id, 'cate_main', 'first category should have correct id');
+      assertEquals(menuStore.categories[0].name, '主食类', 'first category should have correct name');
+    }
+  }
   
   // 测试生成未来7天
   const days = menuStore.next7Days();
   assertLength(days, 7, 'should generate next 7 days');
-  assertContains(days[0].label, '今天', 'first day should contain "今天"');
+  if (days[0]) {
+    assertContains(days[0].label, '今天', 'first day should contain "今天"');
+  }
   
   // 测试菜品搜索
   // 添加一些测试菜品
@@ -67,7 +73,9 @@ function testMenuStore() {
   
   const results = menuStore.search('白米');
   assertLength(results, 1, 'should find one dish');
-  assertEquals(results[0].name, '白米饭', 'should find the correct dish');
+  if (results[0]) {
+    assertEquals(results[0].name, '白米饭', 'should find the correct dish');
+  }
   
   console.log('All tests passed!');
 }

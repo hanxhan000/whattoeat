@@ -12,4 +12,13 @@ export default defineConfig({
     vue(),
     legacy({ targets: ['defaults', 'not IE 11'] })
   ],
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  }
 })

@@ -90,7 +90,23 @@ app.use(Popup)
 app.use(Overlay)
 
 // 挂载应用
-app.mount('#app')
+try {
+  app.mount('#app')
+  console.log('App mounted successfully')
+} catch (error) {
+  console.error('Failed to mount app:', error)
+  // 显示错误信息
+  const appElement = document.getElementById('app')
+  if (appElement) {
+    appElement.innerHTML = `
+      <div style="padding: 20px; text-align: center;">
+        <h2>应用加载失败</h2>
+        <p>请刷新页面重试</p>
+        <button onclick="location.reload()" style="padding: 10px 20px; background: #1989fa; color: white; border: none; border-radius: 4px;">刷新页面</button>
+      </div>
+    `
+  }
+}
 
 // 挂载完成后标记成功并清理看门狗，避免误降级
 ;(window as unknown as { __app_mounted?: boolean }).__app_mounted = true

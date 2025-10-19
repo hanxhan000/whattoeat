@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 // 定义路由
@@ -23,9 +23,9 @@ const routes: RouteRecordRaw[] = [
   }
 ]
 
-// 创建路由实例
+// 创建路由实例（使用 Hash 模式以避免 GitHub Pages 404）
 export const router = createRouter({
-  history: createWebHistory('/whattoeat/'),
+  history: createWebHashHistory('/whattoeat/'),
   routes
 })
 

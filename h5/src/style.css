@@ -29,7 +29,8 @@ body {
 }
 
 #app { 
-  min-height: 100vh;
+  /* 使用移动端安全视口高度变量，避免 iOS Safari 100vh 问题 */
+  min-height: calc(var(--vh, 1vh) * 100);
   position: relative;
 }
 

@@ -176,7 +176,8 @@ function onSelectDish(date: string, meal: string) {
 
 <style scoped>
 .plan {
-  min-height: 100vh;
+  /* 使用安全视口高度变量修复移动端 100vh 问题 */
+  min-height: calc(var(--vh, 1vh) * 100);
   background: #f5f5f5;
 }
 

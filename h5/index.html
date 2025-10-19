@@ -32,9 +32,9 @@
         text-rendering: optimizeLegibility;
       }
       
-      /* 确保移动端显示 */
+      /* 确保移动端显示，使用安全视口高度 */
       #app {
-        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
         width: 100%;
         display: block;
       }

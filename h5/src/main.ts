@@ -2,6 +2,7 @@ import './style.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import { setupErrorHandler } from './utils/errorHandler'
+import { initMobileFix } from './utils/mobileFix'
 
 // 创建应用实例
 const app = createApp(App)
@@ -89,19 +90,44 @@ app.use(Loading)
 app.use(Popup)
 app.use(Overlay)
 
+// 初始化移动端修复
+const { isMobile, isWeChat } = initMobileFix()
+
+console.log('设备信息:', {
+  userAgent: navigator.userAgent,
+  isMobile,
+  isWeChat,
+  viewport: {
+    width: window.innerWidth,
+    height: window.innerHeight
+  }
+})
+
 // 挂载应用
 try {
   app.mount('#app')
   console.log('App mounted successfully')
+  
+  // 移动端特定调试
+  if (isMobile) {
+    console.log('移动端环境检测完成')
+    // 确保Vant组件正确加载
+    setTimeout(() => {
+      const vanElements = document.querySelectorAll('[class*="van-"]')
+      console.log('Vant组件数量:', vanElements.length)
+    }, 1000)
+  }
 } catch (error) {
   console.error('Failed to mount app:', error)
   // 显示错误信息
   const appElement = document.getElementById('app')
   if (appElement) {
     appElement.innerHTML = `
-      <div style="padding: 20px; text-align: center;">
+      <div style="padding: 20px; text-align: center; color: #333;">
         <h2>应用加载失败</h2>
-        <p>请刷新页面重试</p>
+        <p>设备: ${isMobile ? '移动端' : '桌面端'}</p>
+        <p>微信: ${isWeChat ? '是' : '否'}</p>
+        <p>错误: ${error instanceof Error ? error.message : String(error)}</p>
         <button onclick="location.reload()" style="padding: 10px 20px; background: #1989fa; color: white; border: none; border-radius: 4px;">刷新页面</button>
       </div>
     `

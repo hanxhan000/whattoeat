@@ -31,6 +31,21 @@
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
       }
+      
+      /* 确保移动端显示 */
+      #app {
+        min-height: 100vh;
+        width: 100%;
+        display: block;
+      }
+      
+      /* 移动端安全区域适配 */
+      @supports (padding: max(0px)) {
+        body {
+          padding-left: max(12px, env(safe-area-inset-left));
+          padding-right: max(12px, env(safe-area-inset-right));
+        }
+      }
     </style>
   </head>
   <body>

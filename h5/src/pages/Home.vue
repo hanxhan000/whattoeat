@@ -147,6 +147,9 @@ function goToProfile() {
 .home {
   min-height: 100vh;
   background: linear-gradient(180deg, #fff 0%, #f8f8f8 100%);
+  width: 100%;
+  display: block;
+  position: relative;
 }
 
 .main-content {

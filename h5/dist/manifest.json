@@ -1,0 +1,22 @@
+{
+  "name": "今天吃什么",
+  "short_name": "今天吃什么",
+  "description": "家庭智能点餐系统",
+  "start_url": "/whattoeat/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1989fa",
+  "icons": [
+    {
+      "src": "/whattoeat/assets/logo-family-Cax3AFxD.js",
+      "sizes": "any",
+      "type": "application/javascript",
+      "purpose": "any"
+    }
+  ],
+  "orientation": "portrait",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "categories": ["food", "lifestyle", "utilities"],
+}
